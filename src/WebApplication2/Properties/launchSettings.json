@@ -1,6 +1,6 @@
 {
   "iisSettings": {
-    "windowsAuthentication": false,
+    "windowsAuthentication": true,
     "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:57685/",
@@ -18,7 +18,7 @@
     "WebApplication2": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:5000",
+      "launchUrl": "http://localhost:5000/api/Blog",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
