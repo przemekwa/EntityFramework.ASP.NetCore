@@ -13,11 +13,11 @@ namespace WebApplication2
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Goro>().ToTable("Goro");
+            modelBuilder.Entity<Blog>().ToTable("Blogs");
         
         }
 
-        public DbSet<Goro> Goros { get; set; }
+        public DbSet<Blog> Goros { get; set; }
 
         
     }

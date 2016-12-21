@@ -19,29 +19,48 @@ namespace WebApplication2.Controllers
             _blogContext = blogContext;
         }
 
-
-        [HttpGet]
-        public IEnumerable<Goro> Index()
+        [Route("{name}")]
+        public string Add(string name)
         {
-            
-                var g = _blogContext.Database.EnsureCreated();
-
-                var blog = new Goro
+            try
+            {
+                using (_blogContext)
                 {
-                    Title = "http://blogprogramistu.net"
-                };
+                    var g = _blogContext.Database.EnsureCreated();
+                    var id = _blogContext.Goros.LastOrDefault()?.Id;
 
-                var r = _blogContext.Goros.Add(blog);
+                    if (id != null)
+                    {
+                        id++;
+                    }
 
+                    _blogContext.Goros.Add(new Blog
+                    {
+                        Id= id??0,
+                        Title = name
+                    });
+
+                    _blogContext.SaveChanges();
+
+                    return string.Empty;
+                }
+                  
+            }
+            catch (Exception e)
+            {
                 
-                _blogContext.SaveChanges();
+                throw;
+            }
+        }
+
+        [Route("")]
+        public IEnumerable<Blog> Index()
+        {
+                var g = _blogContext.Database.EnsureCreated();
 
                 var result = _blogContext.Goros.ToList();
 
                 return result;
-        
-
-         
         }
     }
 }

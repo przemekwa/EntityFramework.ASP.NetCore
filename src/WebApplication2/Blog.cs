@@ -7,9 +7,9 @@ namespace WebApplication2
 {
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public class Goro
+    public class Blog
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+       
         public int Id { get; set; }
         public string Title { get; set; }
     }
