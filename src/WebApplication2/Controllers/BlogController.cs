@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 namespace WebApplication2.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
 
     [Route("api/[controller]")]
@@ -14,9 +15,9 @@ namespace WebApplication2.Controllers
 
         public BlogContext _blogContext { get; set; }
 
-        public BlogController(BlogContext blogContext)
+        public BlogController(IConfiguration config)
         {
-            _blogContext = blogContext;
+            _blogContext = new BlogContext(config["Data:Blog:ConnectionString"]);
         }
 
         [Route("{name}")]
@@ -27,16 +28,16 @@ namespace WebApplication2.Controllers
                 using (_blogContext)
                 {
                     var g = _blogContext.Database.EnsureCreated();
-                    
 
-                    _blogContext.Goros.Add(new Blog
+
+                    _blogContext.Blogs.Add(new Blog
                     {
                         Title = name
                     });
 
                     _blogContext.SaveChanges();
 
-                    return _blogContext.Goros.ToList();
+                    return _blogContext.Blogs.ToList();
                 }
                   
             }
@@ -46,5 +47,6 @@ namespace WebApplication2.Controllers
                 throw;
             }
         }
+
     }
 }
