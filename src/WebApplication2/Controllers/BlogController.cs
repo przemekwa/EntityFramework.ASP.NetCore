@@ -20,29 +20,23 @@ namespace WebApplication2.Controllers
         }
 
         [Route("{name}")]
-        public string Add(string name)
+        public IEnumerable<Blog> Add(string name)
         {
             try
             {
                 using (_blogContext)
                 {
                     var g = _blogContext.Database.EnsureCreated();
-                    var id = _blogContext.Goros.LastOrDefault()?.Id;
-
-                    if (id != null)
-                    {
-                        id++;
-                    }
+                    
 
                     _blogContext.Goros.Add(new Blog
                     {
-                        Id= id??0,
                         Title = name
                     });
 
                     _blogContext.SaveChanges();
 
-                    return string.Empty;
+                    return _blogContext.Goros.ToList();
                 }
                   
             }
@@ -51,16 +45,6 @@ namespace WebApplication2.Controllers
                 
                 throw;
             }
-        }
-
-        [Route("")]
-        public IEnumerable<Blog> Index()
-        {
-                var g = _blogContext.Database.EnsureCreated();
-
-                var result = _blogContext.Goros.ToList();
-
-                return result;
         }
     }
 }

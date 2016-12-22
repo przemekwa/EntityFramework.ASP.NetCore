@@ -34,13 +34,13 @@ namespace WebApplication2
         {
 
             services.AddDbContext<BlogContext>(options =>
-    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(Configuration["Data:Blog:ConnectionString"]));
 
           
 
 
             services.AddSingleton<IConfiguration>(_ => Configuration);
-            services.AddDbContext<BlogContext>(options => options.UseSqlServer(Configuration["Data:Blog:ConnectionString"]));
+          //  services.AddDbContext<BlogContext>(options => options.UseSqlServer(Configuration["Data:Blog:ConnectionString"]));
             services.AddMvc();
 
         }
